@@ -14,6 +14,7 @@ import { ErrorMessage } from "../models/error_message";
 import { logEmail } from "../services/log_email";
 import { _t } from "../services/translation";
 import { buildLoginMainView } from "./login";
+import { buildSalesView } from "./sales";
 
 function onLogEmail(state: State) {
     const partnerId = state.partner.id;
@@ -121,6 +122,7 @@ export function buildPartnerView(state: State, card: Card) {
 
     if (canContactOdooDatabase) {
         buildLeadsView(state, card);
+        buildSalesView(state, card);
         buildTicketsView(state, card);
         buildTasksView(state, card);
     }

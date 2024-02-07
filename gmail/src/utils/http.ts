@@ -45,6 +45,36 @@ export function postJsonRpc(url: string, data = {}, headers = {}, options: any =
     }
 }
 
+export function jsonRpc(url: string, data = {}, headers = {}) {
+    data = {
+        id: 0,
+        jsonrpc: "2.0",
+        method: "call",
+        params: data,
+    };
+
+    const httpOptions = {
+        method: "post" as GoogleAppsScript.URL_Fetch.HttpMethod,
+        contentType: "application/json",
+        payload: JSON.stringify(data),
+        headers: headers,
+    };
+
+    try {
+        const response = UrlFetchApp.fetch(url, httpOptions);
+
+        const responseCode = response.getResponseCode();
+
+        if (responseCode > 299 || responseCode < 200) {
+            return;
+        }
+
+        return response;
+    } catch {
+        return;
+    }
+}
+
 /**
  * Make a JSON RPC call with the following parameters.
  *

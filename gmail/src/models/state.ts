@@ -167,6 +167,7 @@ export class State {
         const defaultValues: Record<string, number[]> = {
             partners: [],
             leads: [],
+            sales: [],
             tickets: [],
             tasks: [],
         };

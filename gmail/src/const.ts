@@ -17,6 +17,9 @@ export const URLS: Record<string, string> = {
     CREATE_TASK: "/mail_plugin/task/create",
     // IAP
     IAP_COMPANY_ENRICHMENT: "https://iap-services.odoo.com/iap/mail_extension/enrich",
+    // Sales
+    CREATE_SALE: "/mail_plugin/sale/create",
+    GET_SALES: "/mail_plugin/sale/get",
 };
 
 export const ODOO_AUTH_URLS: Record<string, string> = {

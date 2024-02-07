@@ -91,11 +91,7 @@ export function buildLeadsView(state: State, card: Card) {
                 leadButton = CardService.newImageButton()
                     .setAltText(_t("Log the email on the lead"))
                     .setIconUrl(UI_ICONS.email_in_odoo)
-                    .setOnClickAction(
-                        actionCall(state, onLogEmailOnLead.name, {
-                            leadId: lead.id,
-                        }),
-                    );
+                    .setOnClickAction(actionCall(state, onLogEmailOnLead.name, { leadId: lead.id }));
             }
 
             leadsSection.addWidget(

@@ -19,7 +19,7 @@ function onGmailMessageOpen(event) {
 
     const [partner, odooUserCompanies, canCreatePartner, canCreateProject, error] = Partner.enrichPartner(
         currentEmail.contactEmail,
-        currentEmail.contactName
+        currentEmail.contactName,
     );
 
     if (!partner) {
@@ -35,7 +35,7 @@ function onGmailMessageOpen(event) {
         null,
         null,
         canCreateProject,
-        error
+        error,
     );
 
     return [buildView(state)];

@@ -2,11 +2,12 @@ import { Company } from "./company";
 import { Lead } from "./lead";
 import { Task } from "./task";
 import { Ticket } from "./ticket";
-import { postJsonRpc, postJsonRpcCached } from "../utils/http";
+import { jsonRpc, postJsonRpc, postJsonRpcCached } from "../utils/http";
 import { URLS } from "../const";
 import { ErrorMessage } from "../models/error_message";
 import { getAccessToken } from "src/services/odoo_auth";
 import { getOdooServerUrl } from "src/services/app_properties";
+import { Sale } from "./sale";
 
 /**
  * Represent the current partner and all the information about him.
@@ -23,6 +24,7 @@ export class Partner {
 
     company: Company;
     leads: Lead[];
+    sales: Sale[];
     tickets: Ticket[];
     tasks: Task[];
 
@@ -191,6 +193,17 @@ export class Partner {
         // Parse leads
         if (response.leads) {
             partner.leads = response.leads.map((leadValues: any) => Lead.fromOdooResponse(leadValues));
+        }
+
+        const accessToken = getAccessToken();
+
+        const urlSales = PropertiesService.getUserProperties().getProperty("ODOO_SERVER_URL") + URLS.GET_SALES;
+        var requestSales = jsonRpc(urlSales, { partner_id: partner.id }, { Authorization: "Bearer " + accessToken });
+
+        var loadSales = JSON.parse(requestSales.getContentText()).result || null;
+        // Parse sales
+        if (loadSales && loadSales.sales) {
+            partner.sales = loadSales.sales.map((saleValues: any) => Sale.fromOdooResponse(saleValues));
         }
 
         // Parse tickets
