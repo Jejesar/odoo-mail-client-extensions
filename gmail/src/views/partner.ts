@@ -15,6 +15,9 @@ import { logEmail } from "../services/log_email";
 import { _t } from "../services/translation";
 import { buildLoginMainView } from "./login";
 import { buildSalesView } from "./sales";
+import { jsonRpc } from "src/utils/http";
+import { getAccessToken } from "src/services/odoo_auth";
+import { Sale } from "src/models/sale";
 
 function onLogEmail(state: State) {
     const partnerId = state.partner.id;
@@ -119,6 +122,18 @@ export function buildPartnerView(state: State, card: Card) {
     buildPartnerActionView(state, partnerSection);
 
     card.addSection(partnerSection);
+
+    if (partner.id && canContactOdooDatabase) {
+        partner.sales = [];
+
+        const url = PropertiesService.getUserProperties().getProperty("ODOO_SERVER_URL") + URLS.GET_SALES;
+        var response = jsonRpc(url, { partner_id: partner.id }, { Authorization: "Bearer " + getAccessToken() });
+        var sales = JSON.parse(response.getContentText()).result || null;
+
+        if (sales) {
+            partner.sales = sales.sales.map((saleValues: any) => Sale.fromOdooResponse(saleValues));
+        }
+    }
 
     if (canContactOdooDatabase) {
         buildLeadsView(state, card);

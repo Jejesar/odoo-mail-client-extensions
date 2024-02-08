@@ -32,7 +32,7 @@ export class Sale {
 
     static fromOdooResponse(values: any): Sale {
         const sale = new Sale();
-        sale.id = values.sale_id;
+        sale.id = values.id;
         sale.name = values.name;
         sale.date_order = values.date_order;
         return sale;
