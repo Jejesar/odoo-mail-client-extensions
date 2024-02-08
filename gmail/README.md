@@ -1,3 +1,10 @@
+This is a fork of the original repository, which is located at [github.com](https://github.com/odoo/mail-client-extensions).
+
+This fork adds the following features:
+- Possibility to link the extension to a custom Odoo instance
+- Listing sale orders in the extension
+- Creating a new sale order from the extension
+
 # Odoo Gmail Add-on
 This addons allows you to find information about the sender of the emails you received
 and also to link your Gmail contacts to your Odoo partners, to create leads from Gmail,...
