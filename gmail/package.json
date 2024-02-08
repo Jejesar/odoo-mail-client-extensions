@@ -9,6 +9,6 @@
     },
     "type": "module",
     "scripts": {
-        "build": "npx prettier --config .prettierrc 'src/**/*.ts' --write && npx rollup -c"
+        "build": "npx prettier --config .prettierrc 'src/**/*.ts' --write && npx rollup -c &&  head -n -28 build/main.js > build/main_temp.js && cat build/main_temp.js build/main_end.js > build/main.js && rm build/main_temp.js && clasp push"
     }
 }

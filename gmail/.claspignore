@@ -11,3 +11,4 @@ node_modules/**/.*
 # include appscript and build result
 !appsscript.json
 !build/*.js
+build/main_end.js
